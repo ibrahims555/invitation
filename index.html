@@ -11,19 +11,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --gold:        #d4af37;
-      --gold-deep:   #b8960c;
+      --gold:        #b8860b;
+      --gold-bright: #d4af37;
+      --gold-light:  #e8c84a;
       --gold-pale:   #f5e6a3;
-      --gold-dim:    #8a6d0a;
-      --cream:       #fdf6e3;
-      --cream2:      #f7edcc;
-      --cream3:      #efe0b0;
-      --brown:       #2a1a00;
-      --brown2:      #3d2500;
-      --brown3:      #5a3a00;
-      --bg:          #1a0e00;
-      --bg2:         #221400;
-      --bg3:         #2e1c00;
+      --gold-border: rgba(184,134,11,0.35);
+      --cream:       #fdf8ee;
+      --cream2:      #f9f0d8;
+      --cream3:      #f2e4bc;
+      --cream4:      #ecdba0;
+      --text-dark:   #2a1a00;
+      --text-mid:    #5a3a00;
+      --text-soft:   #8a6020;
+      --bg:          #fdf8ee;
+      --bg2:         #f9f0d8;
+      --bg3:         #f4e8c4;
     }
 
     html { scroll-behavior: smooth; }
@@ -31,14 +33,12 @@
     body {
       min-height: 100%;
       background: var(--bg);
-      color: var(--cream);
+      color: var(--text-dark);
       font-family: 'Montserrat', sans-serif;
       overflow-x: hidden;
     }
 
-    /* ══════════════════════════════
-       PETALS CANVAS
-    ══════════════════════════════ */
+    /* PETALS CANVAS */
     #petals-canvas {
       position: fixed;
       inset: 0;
@@ -46,13 +46,11 @@
       z-index: 999;
     }
 
-    /* ══════════════════════════════
-       PAGE LOADER
-    ══════════════════════════════ */
+    /* PAGE LOADER */
     .loader {
       position: fixed;
       inset: 0;
-      background: var(--bg);
+      background: var(--cream2);
       z-index: 500;
       display: flex;
       flex-direction: column;
@@ -74,17 +72,17 @@
     .loader-bar {
       width: 0;
       height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      background: linear-gradient(to right, transparent, var(--gold-bright), transparent);
       animation: growBar 1.2s ease 1.1s forwards;
     }
-    @keyframes growBar { to { width: 200px; } }
+    @keyframes growBar { to { width: 220px; } }
 
     .loader-title {
       font-family: 'Playfair Display', serif;
-      font-size: 36px;
+      font-size: 38px;
       font-weight: 900;
       font-style: italic;
-      color: var(--cream);
+      color: var(--text-dark);
       opacity: 0;
       animation: riseUp 1s ease 1.7s forwards;
     }
@@ -102,64 +100,55 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ══════════════════════════════
-       MAIN PAGE
-    ══════════════════════════════ */
+    /* MAIN PAGE */
     .page {
       max-width: 700px;
       margin: 0 auto;
       opacity: 0;
       animation: riseUp 1.2s ease 3.4s forwards;
+      box-shadow: 0 0 60px rgba(184,134,11,0.12);
     }
 
-    /* ══════════════════════════════
-       ARABIC PATTERN TOP BORDER
-    ══════════════════════════════ */
-    .arabic-border {
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
-    }
+    /* ARABIC TOP BORDER */
+    .arabic-border { width: 100%; overflow: hidden; line-height: 0; }
     .arabic-border svg { display: block; width: 100%; }
 
-    /* ══════════════════════════════
-       HERO
-    ══════════════════════════════ */
+    /* HERO */
     .hero {
       position: relative;
-      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 60%, var(--bg2) 100%);
+      background: linear-gradient(180deg, var(--cream2) 0%, var(--cream3) 50%, var(--cream2) 100%);
       padding: 3.5rem 2.5rem 4rem;
       text-align: center;
       overflow: hidden;
-      border-bottom: 1px solid rgba(212,175,55,0.2);
+      border-bottom: 1px solid var(--gold-border);
     }
 
-    /* Radial gold glow background */
+    /* Soft radial glow */
     .hero::before {
       content: '';
       position: absolute;
-      top: 30%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(ellipse, rgba(212,175,55,0.08) 0%, transparent 70%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, transparent 65%);
       pointer-events: none;
     }
 
-    /* Geometric Arabic lattice */
+    /* Subtle Arabic lattice */
     .hero-lattice {
       position: absolute;
       inset: 0;
-      opacity: 0.04;
+      opacity: 0.06;
       pointer-events: none;
       background-image:
-        repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%),
-        repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
-      background-size: 30px 30px;
+        repeating-linear-gradient(45deg, var(--gold-bright) 0, var(--gold-bright) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, var(--gold-bright) 0, var(--gold-bright) 1px, transparent 0, transparent 50%);
+      background-size: 28px 28px;
     }
 
-    /* ── Couple silhouette ── */
+    /* Couple silhouette */
     .couple-wrap {
       position: relative;
       display: flex;
@@ -167,11 +156,10 @@
       margin-bottom: 1.8rem;
     }
     .couple-svg {
-      width: 160px;
-      filter: drop-shadow(0 0 18px rgba(212,175,55,0.35));
+      width: 170px;
+      filter: drop-shadow(0 4px 20px rgba(184,134,11,0.2));
     }
 
-    /* ── Hero text ── */
     .hero-issue {
       font-size: 9px;
       letter-spacing: 6px;
@@ -183,7 +171,7 @@
       font-size: 10px;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: rgba(253,246,227,0.45);
+      color: var(--text-soft);
       margin-bottom: 0.6rem;
     }
     .hero-name-main {
@@ -193,14 +181,14 @@
       font-style: italic;
       color: var(--gold);
       line-height: 0.95;
-      text-shadow: 0 0 60px rgba(212,175,55,0.2);
+      text-shadow: 0 2px 20px rgba(184,134,11,0.15);
     }
     .hero-amp {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(26px, 5vw, 40px);
       font-style: italic;
       font-weight: 300;
-      color: rgba(212,175,55,0.55);
+      color: rgba(184,134,11,0.45);
       display: block;
       margin: 0.3rem 0;
     }
@@ -209,7 +197,7 @@
       font-size: clamp(36px, 8vw, 60px);
       font-weight: 700;
       font-style: italic;
-      color: var(--cream);
+      color: var(--text-dark);
       line-height: 1.05;
     }
     .hero-urdu {
@@ -227,30 +215,39 @@
       margin: 1.8rem 0 1.4rem;
       justify-content: center;
     }
-    .hero-div-line { flex: 1; height: 0.5px; background: linear-gradient(to right, transparent, rgba(212,175,55,0.5), transparent); max-width: 120px; }
-    .hero-div-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+    .hero-div-line {
+      flex: 1;
+      height: 0.5px;
+      background: linear-gradient(to right, transparent, rgba(184,134,11,0.5), transparent);
+      max-width: 120px;
+    }
+    .hero-div-diamond {
+      width: 6px; height: 6px;
+      background: var(--gold-bright);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
     .hero-badge {
       display: inline-block;
-      border: 1px solid rgba(212,175,55,0.5);
+      border: 1px solid var(--gold-border);
       padding: 0.55rem 2rem;
       font-size: 9px;
       letter-spacing: 6px;
       text-transform: uppercase;
       color: var(--gold);
-      background: rgba(212,175,55,0.05);
+      background: rgba(212,175,55,0.08);
     }
 
-    /* ══════════════════════════════
-       SECTIONS
-    ══════════════════════════════ */
+    /* SECTIONS */
     .section {
       padding: 3rem 2.5rem;
-      border-bottom: 1px solid rgba(212,175,55,0.1);
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      border-bottom: 1px solid rgba(184,134,11,0.12);
+      background: var(--bg);
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
+    .section:nth-child(even) { background: var(--bg2); }
     .section.visible { opacity: 1; transform: none; }
 
     .sec-label {
@@ -263,18 +260,24 @@
       align-items: center;
       gap: 14px;
     }
-    .sec-label::after { content: ''; flex: 1; height: 0.5px; background: linear-gradient(to right, rgba(212,175,55,0.35), transparent); }
+    .sec-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: linear-gradient(to right, rgba(184,134,11,0.4), transparent);
+    }
 
     /* DETAILS */
     .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
-    .detail-item {}
     .detail-item.full { grid-column: 1 / -1; }
-    .d-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(212,175,55,0.5); margin-bottom: 0.5rem; }
+    .d-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-soft); margin-bottom: 0.5rem; }
     .d-value {
       font-family: 'Playfair Display', serif;
-      font-size: 26px; font-weight: 700; color: var(--gold-pale); line-height: 1.15;
+      font-size: 26px; font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.15;
     }
-    .d-sub { font-size: 12px; font-weight: 300; color: rgba(253,246,227,0.4); margin-top: 5px; line-height: 1.6; }
+    .d-sub { font-size: 12px; font-weight: 300; color: var(--text-mid); margin-top: 5px; line-height: 1.6; }
 
     /* MAP BTN */
     .map-btn {
@@ -282,67 +285,114 @@
       align-items: center;
       gap: 14px;
       padding: 1.1rem 1.4rem;
-      border: 1px solid rgba(212,175,55,0.3);
-      color: var(--gold-pale);
+      border: 1px solid var(--gold-border);
+      color: var(--text-dark);
       font-family: 'Montserrat', sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
       text-decoration: none;
       margin-top: 1.5rem;
-      background: rgba(212,175,55,0.04);
+      background: rgba(212,175,55,0.06);
       transition: background 0.25s, border-color 0.25s;
     }
-    .map-btn:hover { background: rgba(212,175,55,0.1); border-color: var(--gold); }
-    .map-icon { width: 36px; height: 36px; border: 1px solid rgba(212,175,55,0.35); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+    .map-btn:hover { background: rgba(212,175,55,0.14); border-color: var(--gold-bright); }
+    .map-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+      background: rgba(212,175,55,0.08);
+    }
     .map-arrow { margin-left: auto; color: var(--gold); font-size: 18px; }
 
     /* COUNTDOWN */
     .cd-row { display: flex; }
-    .cd-unit { flex: 1; text-align: center; padding: 1.8rem 0.4rem; border: 1px solid rgba(212,175,55,0.15); border-right: none; background: rgba(212,175,55,0.03); }
-    .cd-unit:last-child { border-right: 1px solid rgba(212,175,55,0.15); }
-    .cd-num { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: var(--gold); display: block; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.25); }
-    .cd-lbl { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: rgba(212,175,55,0.4); margin-top: 8px; display: block; }
+    .cd-unit {
+      flex: 1; text-align: center;
+      padding: 1.8rem 0.4rem;
+      border: 1px solid rgba(184,134,11,0.2);
+      border-right: none;
+      background: linear-gradient(180deg, var(--cream2), var(--cream3));
+    }
+    .cd-unit:last-child { border-right: 1px solid rgba(184,134,11,0.2); }
+    .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px; font-weight: 900;
+      color: var(--gold);
+      display: block; line-height: 1;
+      text-shadow: 0 1px 8px rgba(184,134,11,0.2);
+    }
+    .cd-lbl {
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-top: 8px; display: block;
+    }
 
     /* RSVP */
-    .rsvp-big { font-family: 'Playfair Display', serif; font-size: clamp(36px, 9vw, 62px); font-weight: 900; font-style: italic; color: var(--gold-pale); line-height: 1.05; margin-bottom: 0.6rem; }
-    .rsvp-sub { font-size: 12px; font-weight: 300; color: rgba(253,246,227,0.38); line-height: 1.9; margin-bottom: 2rem; letter-spacing: 0.3px; }
+    .rsvp-big {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 9vw, 62px);
+      font-weight: 900; font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.05; margin-bottom: 0.6rem;
+    }
+    .rsvp-sub {
+      font-size: 12px; font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.9; margin-bottom: 2rem; letter-spacing: 0.3px;
+    }
     .rsvp-btn {
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.3rem 2rem;
-      background: linear-gradient(135deg, var(--gold-deep), var(--gold), var(--gold-deep));
-      color: var(--brown);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+      color: #fff;
       font-family: 'Montserrat', sans-serif;
       font-size: 11px; font-weight: 500;
       letter-spacing: 4px; text-transform: uppercase; text-decoration: none;
-      transition: filter 0.2s;
+      box-shadow: 0 4px 20px rgba(184,134,11,0.25);
+      transition: filter 0.2s, box-shadow 0.2s;
     }
-    .rsvp-btn:hover { filter: brightness(1.1); }
+    .rsvp-btn:hover { filter: brightness(1.07); box-shadow: 0 6px 28px rgba(184,134,11,0.35); }
 
     /* AYAT */
     .ayat-wrap {
       padding: 3.5rem 2.5rem; text-align: center;
-      background: linear-gradient(180deg, var(--bg2), var(--bg3));
-      border-bottom: 1px solid rgba(212,175,55,0.12);
+      background: linear-gradient(180deg, var(--cream3), var(--cream2));
+      border-bottom: 1px solid rgba(184,134,11,0.12);
       opacity: 0; transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
     .ayat-wrap.visible { opacity: 1; transform: none; }
-    .ayat-arabic { font-family: 'Amiri', serif; font-size: 26px; color: var(--gold); direction: rtl; line-height: 2; margin-bottom: 1.2rem; }
-    .ayat-en { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; font-weight: 300; color: rgba(253,246,227,0.42); line-height: 1.9; max-width: 400px; margin: 0 auto 0.6rem; }
-    .ayat-ref { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(212,175,55,0.45); }
+    .ayat-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 26px; color: var(--gold);
+      direction: rtl; line-height: 2; margin-bottom: 1.2rem;
+    }
+    .ayat-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic; font-weight: 300;
+      color: var(--text-mid); line-height: 1.9;
+      max-width: 400px; margin: 0 auto 0.6rem;
+    }
+    .ayat-ref {
+      font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--text-soft);
+    }
 
     /* FOOTER */
     .footer {
       padding: 2rem 2.5rem;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-      background: var(--bg);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      background: var(--cream3);
+      border-top: 1px solid var(--gold-border);
     }
-    .footer-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(212,175,55,0.3); }
-    .footer-diamonds { color: var(--gold); font-size: 12px; letter-spacing: 6px; }
+    .footer-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-soft); }
+    .footer-diamonds { color: var(--gold-bright); font-size: 12px; letter-spacing: 6px; }
 
-    /* BOTTOM ARABIC BORDER */
-    .arabic-border-bottom { width: 100%; overflow: hidden; line-height: 0; transform: scaleY(-1); }
+    .arabic-border-bottom { width: 100%; overflow: hidden; line-height: 0; }
 
     @media (max-width: 480px) {
       .hero { padding: 2.5rem 1.4rem 3rem; }
@@ -351,7 +401,6 @@
       .detail-item.full { grid-column: 1; }
       .footer { padding: 1.5rem; }
     }
-
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
@@ -359,7 +408,6 @@
 </head>
 <body>
 
-<!-- PETAL CANVAS -->
 <canvas id="petals-canvas"></canvas>
 
 <!-- LOADER -->
@@ -374,18 +422,18 @@
 
   <!-- TOP ARABIC BORDER -->
   <div class="arabic-border">
-    <svg viewBox="0 0 700 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <svg viewBox="0 0 700 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
       <defs>
-        <pattern id="arPat" x="0" y="0" width="70" height="36" patternUnits="userSpaceOnUse">
-          <path d="M0 36 L10 20 L20 28 L35 4 L50 28 L60 20 L70 36" stroke="#d4af37" stroke-width="0.8" fill="none" opacity="0.6"/>
-          <circle cx="35" cy="4" r="2" fill="#d4af37" opacity="0.7"/>
-          <circle cx="0"  cy="36" r="1.5" fill="#d4af37" opacity="0.4"/>
-          <circle cx="70" cy="36" r="1.5" fill="#d4af37" opacity="0.4"/>
-          <line x1="20" y1="28" x2="20" y2="36" stroke="#d4af37" stroke-width="0.5" opacity="0.3"/>
-          <line x1="50" y1="28" x2="50" y2="36" stroke="#d4af37" stroke-width="0.5" opacity="0.3"/>
+        <pattern id="arPat" x="0" y="0" width="70" height="40" patternUnits="userSpaceOnUse">
+          <path d="M0 40 L10 22 L20 30 L35 4 L50 30 L60 22 L70 40" stroke="#b8860b" stroke-width="1" fill="none" opacity="0.55"/>
+          <circle cx="35" cy="4"  r="2.2" fill="#b8860b" opacity="0.65"/>
+          <circle cx="0"  cy="40" r="1.5" fill="#b8860b" opacity="0.35"/>
+          <circle cx="70" cy="40" r="1.5" fill="#b8860b" opacity="0.35"/>
+          <line x1="20" y1="30" x2="20" y2="40" stroke="#b8860b" stroke-width="0.6" opacity="0.25"/>
+          <line x1="50" y1="30" x2="50" y2="40" stroke="#b8860b" stroke-width="0.6" opacity="0.25"/>
         </pattern>
       </defs>
-      <rect width="700" height="36" fill="url(#arPat)"/>
+      <rect width="700" height="40" fill="url(#arPat)"/>
     </svg>
   </div>
 
@@ -393,97 +441,81 @@
   <section class="hero">
     <div class="hero-lattice"></div>
 
-    <!-- Couple Silhouette SVG -->
+    <!-- COUPLE SILHOUETTE -->
     <div class="couple-wrap">
       <svg class="couple-svg" viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.25"/>
+          <radialGradient id="glow2" cx="50%" cy="80%" r="50%">
+            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.18"/>
             <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <ellipse cx="80" cy="100" rx="65" ry="30" fill="url(#glow)"/>
+        <ellipse cx="80" cy="110" rx="62" ry="18" fill="url(#glow2)"/>
 
-        <!-- Dulhan (right) - longer dress silhouette -->
-        <g fill="#d4af37" opacity="0.92">
-          <!-- dulhan head with hijab -->
-          <ellipse cx="98" cy="22" rx="10" ry="11"/>
-          <!-- hijab drape -->
-          <path d="M86 26 Q80 35 82 50 L88 50 Q87 38 90 30 Z"/>
-          <path d="M110 26 Q116 33 114 50 L108 50 Q109 38 106 30 Z"/>
-          <!-- body -->
-          <path d="M88 44 Q82 55 80 80 Q79 100 82 120 Q88 132 98 133 Q108 132 114 120 Q117 100 116 80 Q114 55 108 44 Z"/>
-          <!-- flared dress bottom -->
-          <path d="M82 118 Q72 128 68 138 L128 138 Q124 128 114 118 Z"/>
-          <!-- veil -->
-          <path d="M88 22 Q78 30 74 60 Q72 80 75 100 L80 100 Q78 80 80 60 Q82 40 90 30 Z" opacity="0.5"/>
-          <!-- bouquet -->
-          <ellipse cx="83" cy="85" rx="6" ry="5" fill="#d4af37" opacity="0.6"/>
-          <circle cx="80" cy="83" r="2.5" fill="#f5e6a3" opacity="0.8"/>
-          <circle cx="86" cy="82" r="2" fill="#f5e6a3" opacity="0.7"/>
-          <circle cx="83" cy="87" r="2" fill="#f5e6a3" opacity="0.6"/>
+        <!-- Dulhan (right) -->
+        <g fill="#b8860b" opacity="0.9">
+          <ellipse cx="98" cy="21" rx="10" ry="11"/>
+          <path d="M86 25 Q79 34 81 50 L88 50 Q87 37 90 29 Z"/>
+          <path d="M110 25 Q117 32 115 50 L108 50 Q109 37 106 29 Z"/>
+          <path d="M88 43 Q82 54 80 79 Q79 99 82 119 Q88 131 98 132 Q108 131 114 119 Q117 99 116 79 Q114 54 108 43 Z"/>
+          <path d="M82 117 Q71 128 67 138 L129 138 Q125 128 114 117 Z"/>
+          <path d="M87 21 Q77 30 73 59 Q71 79 74 99 L79 99 Q77 79 79 59 Q81 39 89 29 Z" opacity="0.4"/>
+          <ellipse cx="83" cy="84" rx="6" ry="5" fill="#b8860b" opacity="0.55"/>
+          <circle cx="80" cy="82" r="2.5" fill="#f5e6a3" opacity="0.9"/>
+          <circle cx="86" cy="81" r="2"   fill="#f5e6a3" opacity="0.8"/>
+          <circle cx="83" cy="87" r="2"   fill="#f5e6a3" opacity="0.7"/>
         </g>
 
-        <!-- Dulha (left) - sherwani silhouette -->
-        <g fill="#f5e6a3" opacity="0.88">
-          <!-- head with kulla/topi -->
-          <ellipse cx="62" cy="22" rx="9" ry="10"/>
-          <!-- topi -->
-          <path d="M54 16 Q62 10 70 16 L70 19 Q62 13 54 19 Z" fill="#d4af37"/>
-          <!-- neck -->
-          <rect x="59" y="31" width="6" height="6" rx="2"/>
-          <!-- sherwani body -->
-          <path d="M52 37 Q48 55 47 80 Q46 100 48 120 L76 120 Q78 100 77 80 Q76 55 72 37 Z"/>
-          <!-- sherwani collar -->
-          <path d="M58 37 L62 52 L66 37" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.7"/>
-          <!-- buttons -->
-          <circle cx="62" cy="55" r="1.2" fill="#d4af37" opacity="0.8"/>
-          <circle cx="62" cy="65" r="1.2" fill="#d4af37" opacity="0.8"/>
-          <circle cx="62" cy="75" r="1.2" fill="#d4af37" opacity="0.8"/>
-          <!-- legs/churidar -->
-          <path d="M48 118 L52 138 L60 138 L62 120 L64 138 L72 138 L76 118 Z"/>
-          <!-- arms -->
-          <path d="M52 40 Q44 55 46 75 L51 74 Q50 57 56 44 Z"/>
-          <path d="M72 40 Q80 55 78 75 L73 74 Q74 57 68 44 Z"/>
-          <!-- hand reaching -->
-          <ellipse cx="47" cy="76" rx="4" ry="3"/>
+        <!-- Dulha (left) -->
+        <g fill="#5a3a00" opacity="0.85">
+          <ellipse cx="62" cy="21" rx="9" ry="10"/>
+          <path d="M54 15 Q62 9 70 15 L70 18 Q62 12 54 18 Z" fill="#b8860b"/>
+          <rect x="59" y="30" width="6" height="6" rx="2"/>
+          <path d="M52 36 Q48 54 47 79 Q46 99 48 119 L76 119 Q78 99 77 79 Q76 54 72 36 Z"/>
+          <path d="M58 36 L62 51 L66 36" fill="none" stroke="#d4af37" stroke-width="1.3" opacity="0.6"/>
+          <circle cx="62" cy="54" r="1.2" fill="#b8860b" opacity="0.7"/>
+          <circle cx="62" cy="64" r="1.2" fill="#b8860b" opacity="0.7"/>
+          <circle cx="62" cy="74" r="1.2" fill="#b8860b" opacity="0.7"/>
+          <path d="M48 117 L52 138 L60 138 L62 119 L64 138 L72 138 L76 117 Z"/>
+          <path d="M52 39 Q44 54 46 74 L51 73 Q50 56 56 43 Z"/>
+          <path d="M72 39 Q80 54 78 74 L73 73 Q74 56 68 43 Z"/>
+          <ellipse cx="47" cy="75" rx="4" ry="3"/>
         </g>
 
-        <!-- joined hands -->
-        <path d="M75 76 Q80 74 82 76" stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.8"/>
+        <!-- Joined hands -->
+        <path d="M75 75 Q80 73 82 75" stroke="#b8860b" stroke-width="1.8" fill="none" opacity="0.7"/>
 
-        <!-- floating petals around couple -->
-        <g fill="#d4af37" opacity="0.5">
-          <ellipse cx="38" cy="50" rx="4" ry="2" transform="rotate(-30 38 50)"/>
-          <ellipse cx="122" cy="45" rx="3" ry="1.5" transform="rotate(25 122 45)"/>
-          <ellipse cx="30" cy="80" rx="3" ry="1.5" transform="rotate(-15 30 80)"/>
-          <ellipse cx="128" cy="70" rx="4" ry="2" transform="rotate(40 128 70)"/>
-          <ellipse cx="45" cy="20" rx="3" ry="1.2" transform="rotate(-45 45 20)"/>
-          <ellipse cx="118" cy="18" rx="3" ry="1.2" transform="rotate(35 118 18)"/>
+        <!-- Petals around couple -->
+        <g fill="#d4af37" opacity="0.45">
+          <ellipse cx="37" cy="49" rx="4" ry="2" transform="rotate(-30 37 49)"/>
+          <ellipse cx="122" cy="44" rx="3" ry="1.5" transform="rotate(25 122 44)"/>
+          <ellipse cx="29" cy="79" rx="3" ry="1.5" transform="rotate(-15 29 79)"/>
+          <ellipse cx="128" cy="69" rx="4" ry="2" transform="rotate(40 128 69)"/>
+          <ellipse cx="44" cy="19" rx="3" ry="1.2" transform="rotate(-45 44 19)"/>
+          <ellipse cx="118" cy="17" rx="3" ry="1.2" transform="rotate(35 118 17)"/>
         </g>
 
-        <!-- star sparkles -->
-        <g fill="#f5e6a3" opacity="0.7">
-          <text x="20" y="35" font-size="8">✦</text>
-          <text x="130" y="40" font-size="6">✦</text>
-          <text x="25" y="65" font-size="5">✦</text>
-          <text x="133" y="60" font-size="7">✦</text>
+        <!-- Sparkles -->
+        <g fill="#b8860b" opacity="0.6">
+          <text x="19" y="34" font-size="8">✦</text>
+          <text x="130" y="39" font-size="6">✦</text>
+          <text x="24" y="64" font-size="5">✦</text>
+          <text x="133" y="59" font-size="7">✦</text>
         </g>
       </svg>
     </div>
+
+    <div class="hero-issue">Valima Edition · 2026</div>
     <div class="hero-eyebrow">The union of</div>
-    <!-- ✏️ EDIT: Dulha ka naam -->
     <div class="hero-name-main">Ibrahim</div>
     <span class="hero-amp">&amp;</span>
-    <!-- ✏️ EDIT: Dulhan ka naam -->
     <div class="hero-name2">Falak</div>
-    <!-- ✏️ EDIT: Urdu naam -->
     <div class="hero-urdu">ابراہیم &amp; فلک</div>
 
     <div class="hero-divider">
       <div class="hero-div-line"></div>
       <div class="hero-div-diamond"></div>
-      <div class="hero-div-diamond" style="margin:-3px 2px 0;opacity:0.4;transform:rotate(45deg) scale(0.6)"></div>
+      <div class="hero-div-diamond" style="margin:-3px 2px 0;opacity:0.35;transform:rotate(45deg) scale(0.6)"></div>
       <div class="hero-div-line"></div>
     </div>
     <div class="hero-badge">You are cordially invited</div>
@@ -495,22 +527,18 @@
     <div class="details-grid">
       <div class="detail-item">
         <div class="d-label">Date</div>
-        <!-- ✏️ EDIT: Date -->
         <div class="d-value">Tuesday<br>15 Sep</div>
         <div class="d-sub">2026</div>
       </div>
       <div class="detail-item">
         <div class="d-label">Time</div>
-        <!-- ✏️ EDIT: Time -->
         <div class="d-value">9:00 PM</div>
-        <div class="d-sub">Lunch onwards<br>Doors open 11:30</div>
+        <div class="d-sub">Dinner onwards<br>Doors open 11:30</div>
       </div>
       <div class="detail-item full">
         <div class="d-label">Venue</div>
-        <!-- ✏️ EDIT: Venue -->
         <div class="d-value">Sky Glorious Banquet Hall</div>
         <div class="d-sub">Shahrah-Sher Shah Suri Service Rd N, Block J North Nazimabad Town, Karachi</div>
-        <!-- ✏️ EDIT: Google Maps URL -->
         <a class="map-btn" href="https://maps.app.goo.gl/QrHjje1JLLsEYGFG7" target="_blank" rel="noopener">
           <div class="map-icon">📍</div>
           <span>Open in Google Maps</span>
@@ -539,7 +567,6 @@
       Kindly confirm your attendance via WhatsApp.<br>
       Your presence will make this day truly complete.
     </div>
-    <!-- ✏️ EDIT: 92 ke baad apna number (bina 0 ke) -->
     <a class="rsvp-btn"
        href="https://wa.me/923481318464?text=Assalamu%20Alaikum%20Ibrahim%20bhai!%20I%20confirm%20my%20attendance%20at%20your%20Valima%20InshaaAllah%20%F0%9F%8C%B9"
        target="_blank" rel="noopener">
@@ -557,13 +584,19 @@
 
   <!-- BOTTOM ARABIC BORDER -->
   <div class="arabic-border-bottom">
-    <svg viewBox="0 0 700 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <rect width="700" height="36" fill="url(#arPat)"/>
+    <svg viewBox="0 0 700 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <pattern id="arPatB" x="0" y="0" width="70" height="40" patternUnits="userSpaceOnUse">
+          <path d="M0 0 L10 18 L20 10 L35 36 L50 10 L60 18 L70 0" stroke="#b8860b" stroke-width="1" fill="none" opacity="0.55"/>
+          <circle cx="35" cy="36" r="2.2" fill="#b8860b" opacity="0.65"/>
+        </pattern>
+      </defs>
+      <rect width="700" height="40" fill="url(#arPatB)"/>
     </svg>
   </div>
 
   <div class="footer">
-    <span class="footer-tag">Ibrahim &amp; Falak · Valima 2025</span>
+    <span class="footer-tag">Ibrahim &amp; Falak · Valima 2026</span>
     <span class="footer-diamonds">◆ ◆ ◆</span>
     <span class="footer-tag">JazakAllah Khair</span>
   </div>
@@ -571,34 +604,27 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════
-   PETAL RAIN — canvas based
-═══════════════════════════════════ */
+/* PETAL RAIN */
 const canvas = document.getElementById('petals-canvas');
 const ctx = canvas.getContext('2d');
-
 function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
 resize();
 window.addEventListener('resize', resize);
 
-const COLORS = ['#d4af37','#f5e6a3','#e8c96a','#c9a84c','#f0dfa0','#e8b4c0','#f5c6d8'];
+const COLORS = ['#d4af37','#b8860b','#e8c84a','#f5e6a3','#c9a84c','#f0b8c0','#f5d0d8','#e8d4a0'];
 
-// Petal shapes: 0=rose, 1=oval, 2=heart-like
 function drawPetal(ctx, x, y, size, angle, color, shape) {
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
   ctx.fillStyle = color;
-  ctx.globalAlpha = 0.75;
+  ctx.globalAlpha = 0.55;
   ctx.beginPath();
   if (shape === 0) {
-    // rose petal
-    ctx.ellipse(0, 0, size * 0.5, size, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, size * 0.45, size, 0, 0, Math.PI * 2);
   } else if (shape === 1) {
-    // round petal
     ctx.ellipse(0, 0, size * 0.6, size * 0.8, 0, 0, Math.PI * 2);
   } else {
-    // teardrop
     ctx.moveTo(0, -size);
     ctx.bezierCurveTo(size * 0.6, -size * 0.4, size * 0.6, size * 0.6, 0, size * 0.4);
     ctx.bezierCurveTo(-size * 0.6, size * 0.6, -size * 0.6, -size * 0.4, 0, -size);
@@ -608,20 +634,18 @@ function drawPetal(ctx, x, y, size, angle, color, shape) {
 }
 
 const petals = [];
-const PETAL_COUNT = 38;
-
-for (let i = 0; i < PETAL_COUNT; i++) {
+for (let i = 0; i < 42; i++) {
   petals.push({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight - window.innerHeight,
     size: 4 + Math.random() * 6,
-    speed: 0.5 + Math.random() * 1.2,
+    speed: 0.4 + Math.random() * 1.1,
     drift: (Math.random() - 0.5) * 0.5,
     angle: Math.random() * Math.PI * 2,
-    spin: (Math.random() - 0.5) * 0.025,
+    spin: (Math.random() - 0.5) * 0.022,
     color: COLORS[Math.floor(Math.random() * COLORS.length)],
     shape: Math.floor(Math.random() * 3),
-    delay: Math.random() * 120
+    delay: Math.random() * 100
   });
 }
 
@@ -632,7 +656,7 @@ function animatePetals() {
   for (const p of petals) {
     if (frame < p.delay) continue;
     p.y += p.speed;
-    p.x += p.drift + Math.sin(frame * 0.01 + p.delay) * 0.3;
+    p.x += p.drift + Math.sin(frame * 0.009 + p.delay) * 0.3;
     p.angle += p.spin;
     if (p.y > canvas.height + 20) {
       p.y = -20;
@@ -644,27 +668,18 @@ function animatePetals() {
 }
 animatePetals();
 
-/* ═══════════════════════════════════
-   LOADER HIDE
-═══════════════════════════════════ */
-setTimeout(() => {
-  document.getElementById('loader').classList.add('hide');
-}, 3200);
+/* LOADER */
+setTimeout(() => { document.getElementById('loader').classList.add('hide'); }, 3200);
 
-/* ═══════════════════════════════════
-   SCROLL REVEAL
-═══════════════════════════════════ */
+/* SCROLL REVEAL */
 const revealEls = document.querySelectorAll('.section, .ayat-wrap');
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
 revealEls.forEach(el => obs.observe(el));
 
-/* ═══════════════════════════════════
-   COUNTDOWN
-   ✏️ EDIT: Date aur time yahan
-═══════════════════════════════════ */
-const eventDate = new Date("2026-09-15T13:00:00");
+/* COUNTDOWN */
+const eventDate = new Date("2026-09-15T21:00:00");
 function tick() {
   const diff = eventDate - new Date();
   if (diff <= 0) {
