@@ -1,496 +1,506 @@
 <!DOCTYPE html>
-<html lang="ur" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walima Invitation</title>
+  <title>Ibrahim — Walima Invitation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      min-height: 100vh;
-      background: radial-gradient(ellipse at top, #2d1055 0%, #1a0a2e 50%, #0d0519 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      font-family: 'Cormorant Garamond', serif;
+    :root {
+      --cream: #f5f0e8;
+      --cream-dark: #ede5d0;
+      --black: #0d0d0d;
+      --gold: #b8960c;
+      --gold-light: #d4af37;
+      --gold-pale: #f0e0a0;
     }
 
-    /* ── Floating petals background ── */
-    .petals-bg {
+    html, body {
+      min-height: 100%;
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* PAGE LOADER */
+    .page-loader {
       position: fixed;
       inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .petal {
-      position: absolute;
-      opacity: 0;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-60px) rotate(0deg); opacity: 0; }
-      10%  { opacity: 0.4; }
-      90%  { opacity: 0.2; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* ── Card ── */
-    .card-wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 500px;
-      width: 100%;
-    }
-
-    .card {
-      background: linear-gradient(180deg, #fdf8ee 0%, #fefcf5 55%, #fdf8ee 100%);
-      border: 1px solid #c9a84c;
-      border-radius: 3px;
-      padding: 3rem 2.5rem 2.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Inner border */
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border: 0.5px solid rgba(201,168,76,0.35);
-      border-radius: 2px;
-      pointer-events: none;
-    }
-
-    /* ── Corner ornaments ── */
-    .corner {
-      position: absolute;
-      width: 72px;
-      height: 72px;
-    }
-    .corner.tl { top: 0; left: 0; }
-    .corner.tr { top: 0; right: 0; transform: scaleX(-1); }
-    .corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
-    .corner.br { bottom: 0; right: 0; transform: scale(-1,-1); }
-
-    /* ── Bismillah ── */
-    .bismillah {
-      text-align: center;
-      font-family: 'Amiri', serif;
-      font-size: 24px;
-      color: #7a4f00;
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
-      direction: rtl;
-    }
-
-    /* ── Dividers ── */
-    .divider {
+      background: var(--black);
+      z-index: 100;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin: 0.6rem 0;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: loaderFade 0.7s ease 3s forwards;
+      pointer-events: all;
     }
-    .div-line {
-      flex: 1;
+    @keyframes loaderFade { to { opacity: 0; pointer-events: none; } }
+
+    .loader-bismillah {
+      font-family: 'Amiri', serif;
+      font-size: 28px;
+      color: var(--gold-light);
+      direction: rtl;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.3s forwards;
+    }
+    .loader-line {
+      width: 0;
       height: 0.5px;
-      background: linear-gradient(to right, transparent, #c9a84c88, transparent);
+      background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+      animation: expandLine 1s ease 1.1s forwards;
     }
-    .div-diamond {
-      width: 5px; height: 5px;
-      background: #c9a84c;
-      transform: rotate(45deg);
-      flex-shrink: 0;
+    @keyframes expandLine { to { width: 220px; } }
+    .loader-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--cream);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 1.6s forwards;
+      letter-spacing: 2px;
     }
-
-    /* ── Floral motif ── */
-    .floral { text-align: center; margin: 0.5rem 0; }
-
-    /* ── Invite heading ── */
-    .invite-eyebrow {
-      text-align: center;
-      font-size: 11px;
-      letter-spacing: 4px;
+    .loader-sub {
+      font-size: 9px;
+      letter-spacing: 6px;
       text-transform: uppercase;
-      color: #9a7428;
-      margin: 0.4rem 0 0.2rem;
+      color: var(--gold-light);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2.2s forwards;
     }
 
-    .walima-title {
-      text-align: center;
-      font-size: 13px;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MAIN PAGE */
+    .page {
+      opacity: 0;
+      animation: fadeUp 1s ease 3.4s forwards;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 2.5rem 4rem;
+      border-bottom: 0.5px solid rgba(212,175,55,0.2);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        90deg, transparent, transparent 59px, rgba(212,175,55,0.03) 60px
+      );
+      pointer-events: none;
+    }
+    .hero-issue {
+      font-size: 9px;
       letter-spacing: 5px;
       text-transform: uppercase;
-      color: #c9a84c;
-      margin: 0.1rem 0 0.6rem;
+      color: var(--gold-light);
+      margin-bottom: 3.5rem;
     }
-
-    /* ── Names ── */
-    .names-en {
-      text-align: center;
-      font-size: 52px;
-      font-weight: 600;
-      font-style: italic;
-      color: #4a2c00;
-      line-height: 1.05;
-    }
-    .names-ampersand {
-      display: block;
-      font-size: 30px;
-      font-weight: 300;
-      color: #c9a84c;
-      font-style: normal;
-      line-height: 1.3;
-    }
-    .names-ur {
-      text-align: center;
-      font-family: 'Amiri', serif;
-      font-size: 22px;
-      color: #7a4f00;
-      direction: rtl;
-      margin: 0.4rem 0 0.2rem;
-      letter-spacing: 1px;
-    }
-
-    /* ── Details box ── */
-    .details-box {
-      background: rgba(201,168,76,0.07);
-      border: 0.5px solid rgba(201,168,76,0.4);
-      border-radius: 2px;
-      padding: 1.1rem 1.3rem;
-      margin: 0.9rem 0;
-    }
-    .detail-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 0.45rem 0;
-      border-bottom: 0.5px solid rgba(201,168,76,0.2);
-    }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-icon { font-size: 18px; color: #c9a84c; flex-shrink: 0; margin-top: 2px; }
-    .detail-label {
+    .hero-eyebrow {
       font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #9a7428;
-    }
-    .detail-value {
-      font-size: 16px;
-      font-weight: 600;
-      color: #3a2000;
-      line-height: 1.25;
-    }
-    .detail-sub {
-      font-size: 13px;
-      font-weight: 300;
-      color: #7a5010;
-      display: block;
-    }
-
-    /* ── Countdown ── */
-    .countdown-wrap { text-align: center; margin: 0.9rem 0 0.5rem; }
-    .countdown-eyebrow {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #9a7428;
-      margin-bottom: 0.6rem;
-    }
-    .countdown-units {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .cd-unit { text-align: center; }
-    .cd-num {
-      background: #4a2c00;
-      color: #fdf0cc;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      font-weight: 600;
-      width: 58px; height: 58px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 2px;
-    }
-    .cd-label {
-      font-size: 9px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #9a7428;
-      margin-top: 5px;
-    }
-
-    /* ── RSVP button ── */
-    .rsvp-btn {
-      display: block;
-      width: 100%;
-      margin-top: 1.2rem;
-      padding: 0.85rem 1rem;
-      background: #4a2c00;
-      color: #fdf0cc;
-      border: none;
-      border-radius: 2px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      font-weight: 400;
       letter-spacing: 4px;
       text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.2s, letter-spacing 0.2s;
+      color: rgba(245,240,232,0.45);
+      margin-bottom: 0.8rem;
     }
-    .rsvp-btn:hover { background: #6b4000; letter-spacing: 5px; }
-
-    /* ── Quranic ayat footer ── */
-    .footer-ayat {
-      text-align: center;
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(60px, 14vw, 100px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 0.9;
+      color: var(--cream);
+    }
+    .hero-name em { color: var(--gold-light); font-style: italic; }
+    .hero-amp {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 6vw, 44px);
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(212,175,55,0.5);
+      display: block;
+      margin: 0.4rem 0;
+    }
+    .hero-name2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 9vw, 68px);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--cream);
+    }
+    .hero-urdu {
+      font-family: 'Amiri', serif;
+      font-size: 20px;
+      color: var(--gold-light);
+      direction: rtl;
       margin-top: 1.2rem;
     }
-    .ayat-en {
-      font-size: 12px;
-      font-style: italic;
-      color: #9a7428;
-      line-height: 1.6;
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2.5rem 0 1.5rem;
     }
-    .ayat-ref {
+    .hero-div-line { flex: 1; height: 0.5px; background: rgba(212,175,55,0.25); }
+    .hero-div-text {
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      flex-shrink: 0;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 0.5px solid var(--gold-light);
+      padding: 0.5rem 1.8rem;
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .hero-watermark {
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
       font-family: 'Amiri', serif;
-      font-size: 15px;
-      color: #c9a84c;
-      direction: rtl;
-      display: block;
-      margin-top: 4px;
+      font-size: 180px;
+      color: rgba(212,175,55,0.03);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
     }
 
-    .tagline {
-      text-align: center;
+    /* SECTIONS */
+    .section {
+      padding: 3rem 2.5rem;
+      border-bottom: 0.5px solid rgba(212,175,55,0.1);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .section.visible { opacity: 1; transform: none; }
+
+    .sec-label {
+      font-size: 9px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sec-label::after { content: ''; flex: 1; height: 0.5px; background: rgba(212,175,55,0.18); }
+
+    /* DETAILS */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 1.5rem;
+    }
+    .detail-item {}
+    .detail-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+      margin-bottom: 0.4rem;
+    }
+    .detail-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+    }
+    .detail-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(245,240,232,0.45);
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+    .detail-item.full { grid-column: 1 / -1; }
+
+    /* MAP BUTTON */
+    .map-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 1.1rem 1.4rem;
+      background: transparent;
+      border: 0.5px solid rgba(212,175,55,0.3);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: #b89040;
-      margin-top: 0.7rem;
+      text-decoration: none;
+      margin-top: 1.5rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .map-btn:hover { background: rgba(212,175,55,0.07); border-color: var(--gold-light); }
+    .map-icon {
+      width: 38px; height: 38px;
+      border: 0.5px solid rgba(212,175,55,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .map-arrow { margin-left: auto; color: var(--gold-light); font-size: 18px; }
+
+    /* COUNTDOWN */
+    .cd-row { display: flex; }
+    .cd-unit {
+      flex: 1; text-align: center;
+      padding: 1.8rem 0.5rem;
+      border: 0.5px solid rgba(212,175,55,0.15);
+      border-right: none;
+    }
+    .cd-unit:last-child { border-right: 0.5px solid rgba(212,175,55,0.15); }
+    .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px; font-weight: 900;
+      color: var(--gold-light); display: block; line-height: 1;
+    }
+    .cd-lbl {
+      font-size: 8px; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.3);
+      margin-top: 7px; display: block;
     }
 
-    /* ── Responsive ── */
+    /* RSVP */
+    .rsvp-big {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 9vw, 64px);
+      font-weight: 900; font-style: italic;
+      color: var(--cream); line-height: 1.05;
+      margin-bottom: 0.6rem;
+    }
+    .rsvp-sub {
+      font-size: 12px; font-weight: 300;
+      color: rgba(245,240,232,0.4);
+      letter-spacing: 0.5px; line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .rsvp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 2rem;
+      background: var(--gold-light);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .rsvp-btn:hover { background: var(--gold-pale); }
+
+    /* AYAT */
+    .ayat-wrap {
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      border-bottom: 0.5px solid rgba(212,175,55,0.1);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .ayat-wrap.visible { opacity: 1; transform: none; }
+    .ayat-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 24px;
+      color: var(--gold-light);
+      direction: rtl;
+      line-height: 2;
+      margin-bottom: 1.2rem;
+    }
+    .ayat-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic; font-weight: 300;
+      color: rgba(245,240,232,0.45);
+      line-height: 1.9; max-width: 380px;
+      margin: 0 auto 0.6rem;
+    }
+    .ayat-ref {
+      font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(212,175,55,0.45);
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-tag {
+      font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.2);
+    }
+    .footer-diamonds { color: var(--gold-light); font-size: 12px; letter-spacing: 5px; }
+
     @media (max-width: 480px) {
-      .card { padding: 2.2rem 1.4rem 2rem; }
-      .names-en { font-size: 40px; }
-      .cd-num { width: 48px; height: 48px; font-size: 20px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .petal { animation: none; }
+      .hero { padding: 5rem 1.5rem 3rem; min-height: auto; }
+      .section, .ayat-wrap, .footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .details-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .detail-item.full { grid-column: 1; }
     }
   </style>
 </head>
 <body>
 
-<!-- Floating petals -->
-<div class="petals-bg" id="petals"></div>
+<!-- LOADER -->
+<div class="page-loader">
+  <div class="loader-bismillah">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+  <div class="loader-line"></div>
+  <div class="loader-name">Ibrahim</div>
+  <div class="loader-sub">Walima · You are invited</div>
+</div>
 
-<div class="card-wrap">
-  <div class="card">
+<!-- MAIN -->
+<div class="page">
 
-    <!-- Corner SVGs -->
-    <svg class="corner tl" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3 L3 36 Q3 3 36 3 Z" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-      <path d="M3 3 L22 3 Q3 3 3 22 Z" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.5"/>
-      <circle cx="3" cy="3" r="2.5" fill="#c9a84c"/>
-      <path d="M12 3 Q7 7 3 12" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
-      <path d="M22 3 Q12 12 3 22" stroke="#c9a84c" stroke-width="0.4" fill="none" opacity="0.5"/>
-      <circle cx="14" cy="5" r="1.2" fill="#c9a84c" opacity="0.5"/>
-      <circle cx="5" cy="14" r="1.2" fill="#c9a84c" opacity="0.5"/>
-      <path d="M8 3 Q5 5 3 8" stroke="#c9a84c" stroke-width="0.3" fill="none" opacity="0.4"/>
-    </svg>
-    <svg class="corner tr" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3 L3 36 Q3 3 36 3 Z" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-      <path d="M3 3 L22 3 Q3 3 3 22 Z" stroke="#c9a84c" stroke-width="0.5" fill="none" opacity="0.5"/>
-      <circle cx="3" cy="3" r="2.5" fill="#c9a84c"/>
-      <path d="M12 3 Q7 7 3 12" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
-      <path d="M22 3 Q12 12 3 22" stroke="#c9a84c" stroke-width="0.4" fill="none" opacity="0.5"/>
-      <circle cx="14" cy="5" r="1.2" fill="#c9a84c" opacity="0.5"/>
-      <circle cx="5" cy="14" r="1.2" fill="#c9a84c" opacity="0.5"/>
-    </svg>
-    <svg class="corner bl" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3 L3 36 Q3 3 36 3 Z" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-      <circle cx="3" cy="3" r="2.5" fill="#c9a84c"/>
-      <path d="M12 3 Q7 7 3 12" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
-      <circle cx="14" cy="5" r="1.2" fill="#c9a84c" opacity="0.5"/>
-      <circle cx="5" cy="14" r="1.2" fill="#c9a84c" opacity="0.5"/>
-    </svg>
-    <svg class="corner br" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 3 L3 36 Q3 3 36 3 Z" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-      <circle cx="3" cy="3" r="2.5" fill="#c9a84c"/>
-      <path d="M12 3 Q7 7 3 12" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
-      <circle cx="14" cy="5" r="1.2" fill="#c9a84c" opacity="0.5"/>
-      <circle cx="5" cy="14" r="1.2" fill="#c9a84c" opacity="0.5"/>
-    </svg>
-
-    <!-- Bismillah -->
-    <div class="bismillah">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-
-    <div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
-
-    <!-- Floral motif -->
-    <div class="floral">
-      <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.8">
-          <circle cx="110" cy="22" r="5.5" fill="#c9a84c"/>
-          <circle cx="110" cy="22" r="10" stroke="#c9a84c" stroke-width="0.6" fill="none"/>
-          <line x1="110" y1="5" x2="110" y2="12" stroke="#c9a84c" stroke-width="0.8"/>
-          <line x1="110" y1="32" x2="110" y2="39" stroke="#c9a84c" stroke-width="0.8"/>
-          <line x1="93" y1="22" x2="100" y2="22" stroke="#c9a84c" stroke-width="0.8"/>
-          <line x1="120" y1="22" x2="127" y2="22" stroke="#c9a84c" stroke-width="0.8"/>
-          <ellipse cx="82" cy="22" rx="9" ry="4.5" stroke="#c9a84c" stroke-width="0.5" fill="rgba(201,168,76,0.15)" transform="rotate(-20 82 22)"/>
-          <ellipse cx="138" cy="22" rx="9" ry="4.5" stroke="#c9a84c" stroke-width="0.5" fill="rgba(201,168,76,0.15)" transform="rotate(20 138 22)"/>
-          <ellipse cx="62" cy="22" rx="7" ry="3.5" stroke="#c9a84c" stroke-width="0.4" fill="rgba(201,168,76,0.08)" transform="rotate(-35 62 22)"/>
-          <ellipse cx="158" cy="22" rx="7" ry="3.5" stroke="#c9a84c" stroke-width="0.4" fill="rgba(201,168,76,0.08)" transform="rotate(35 158 22)"/>
-          <path d="M42 22 Q50 16 58 22 Q50 28 42 22Z" fill="#c9a84c" opacity="0.45"/>
-          <path d="M162 22 Q170 16 178 22 Q170 28 162 22Z" fill="#c9a84c" opacity="0.45"/>
-          <line x1="20" y1="22" x2="42" y2="22" stroke="#c9a84c" stroke-width="0.4" opacity="0.5"/>
-          <line x1="178" y1="22" x2="200" y2="22" stroke="#c9a84c" stroke-width="0.4" opacity="0.5"/>
-          <circle cx="20" cy="22" r="2" fill="#c9a84c" opacity="0.4"/>
-          <circle cx="200" cy="22" r="2" fill="#c9a84c" opacity="0.4"/>
-        </g>
-      </svg>
+  <section class="hero">
+    <div class="hero-watermark">و</div>
+    <div class="hero-issue">Walima Edition · 2025</div>
+    <div class="hero-eyebrow">The union of</div>
+    <!-- ✏️ EDIT: Dulha ka naam -->
+    <div class="hero-name"><em>Ibrahim</em></div>
+    <span class="hero-amp">&amp;</span>
+    <!-- ✏️ EDIT: Dulhan ka naam -->
+    <div class="hero-name2">Ayesha</div>
+    <!-- ✏️ EDIT: Urdu naam -->
+    <div class="hero-urdu">ابراہیم &amp; عائشہ</div>
+    <div class="hero-divider">
+      <div class="hero-div-line"></div>
+      <div class="hero-div-text">Walima Ceremony</div>
+      <div class="hero-div-line"></div>
     </div>
+    <div class="hero-badge">You are cordially invited</div>
+  </section>
 
-    <p class="invite-eyebrow">Together with their families</p>
-    <p class="invite-eyebrow" style="font-size:10px; letter-spacing:2px; margin-top:3px;">cordially invite you to the</p>
-    <p class="walima-title">— Walima Ceremony —</p>
-
-    <!-- Names -->
-    <div class="names-en">
-      <!-- ✏️ EDIT: Dulha ka naam -->
-      Ahmed
-      <span class="names-ampersand">&</span>
-      <!-- ✏️ EDIT: Dulhan ka naam -->
-      Fatima
-    </div>
-
-    <!-- ✏️ EDIT: Urdu mein naam -->
-    <div class="names-ur">احمد &amp; فاطمہ</div>
-
-    <div class="divider" style="margin:0.8rem 0"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
-
-    <!-- Details -->
-    <div class="details-box">
-      <div class="detail-row">
-        <span class="detail-icon">📅</span>
-        <div>
-          <div class="detail-label">Date</div>
-          <!-- ✏️ EDIT: Apni date yahan likhein -->
-          <div class="detail-value">Saturday, 15th February 2025</div>
-        </div>
+  <!-- DETAILS -->
+  <section class="section">
+    <div class="sec-label">The Details</div>
+    <div class="details-grid">
+      <div class="detail-item">
+        <div class="detail-label">Date</div>
+        <!-- ✏️ EDIT: Date -->
+        <div class="detail-value">Saturday<br>15 Feb</div>
+        <div class="detail-sub">2025</div>
       </div>
-      <div class="detail-row">
-        <span class="detail-icon">🕐</span>
-        <div>
-          <div class="detail-label">Time</div>
-          <!-- ✏️ EDIT: Apna waqt -->
-          <div class="detail-value">Lunch — 1:00 PM onwards</div>
-        </div>
+      <div class="detail-item">
+        <div class="detail-label">Time</div>
+        <!-- ✏️ EDIT: Time -->
+        <div class="detail-value">1:00 PM</div>
+        <div class="detail-sub">Lunch onwards<br>Doors open 12:30</div>
       </div>
-      <div class="detail-row">
-        <span class="detail-icon">📍</span>
-        <div>
-          <div class="detail-label">Venue</div>
-          <!-- ✏️ EDIT: Apna venue -->
-          <div class="detail-value">Al-Noor Banquet Hall
-            <span class="detail-sub">123 Main Street, Karachi</span>
-          </div>
-        </div>
+      <div class="detail-item full">
+        <div class="detail-label">Venue</div>
+        <!-- ✏️ EDIT: Venue name aur address -->
+        <div class="detail-value">Al-Noor Banquet Hall</div>
+        <div class="detail-sub">123 Main Street, Karachi, Pakistan</div>
+        <!-- ✏️ EDIT: Google Maps URL — venue search karein, link copy karein -->
+        <a class="map-btn" href="https://maps.google.com/?q=Al-Noor+Banquet+Hall+Karachi" target="_blank" rel="noopener">
+          <div class="map-icon">📍</div>
+          <span>Open in Google Maps</span>
+          <span class="map-arrow">→</span>
+        </a>
       </div>
     </div>
+  </section>
 
-    <!-- Countdown -->
-    <div class="countdown-wrap">
-      <div class="countdown-eyebrow">Countdown to the celebration</div>
-      <div class="countdown-units">
-        <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Days</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Hours</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Mins</div></div>
-        <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Secs</div></div>
-      </div>
+  <!-- COUNTDOWN -->
+  <section class="section">
+    <div class="sec-label">Counting Down</div>
+    <div class="cd-row">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Mins</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Secs</span></div>
     </div>
+  </section>
 
-    <!-- RSVP -->
-    <!-- ✏️ EDIT: Apna WhatsApp number neeche likhein (92 ke baad country code ke baad number) -->
+  <!-- RSVP -->
+  <section class="section">
+    <div class="sec-label">RSVP</div>
+    <div class="rsvp-big">Will you<br>be there?</div>
+    <div class="rsvp-sub">
+      Kindly confirm your attendance via WhatsApp.<br>
+      Your presence will make this day truly complete.
+    </div>
+    <!-- ✏️ EDIT: 92 ke baad apna number (bina 0 ke) — e.g. 923331234567 -->
     <a class="rsvp-btn"
-       href="https://wa.me/923001234567?text=Assalamu%20Alaikum!%20I%20confirm%20my%20attendance%20at%20the%20Walima%20of%20Ahmed%20%26%20Fatima%20InshaaAllah%20%F0%9F%8C%B9"
+       href="https://wa.me/923001234567?text=Assalamu%20Alaikum%20Ibrahim%20bhai!%20I%20confirm%20my%20attendance%20at%20your%20Walima%20InshaaAllah%20%F0%9F%8C%B9"
        target="_blank" rel="noopener">
-      ✉ RSVP via WhatsApp
+      <span>Confirm via WhatsApp</span>
+      <span style="font-size:20px;">↗</span>
     </a>
+  </section>
 
-    <!-- Footer -->
-    <div class="footer-ayat">
-      <p class="ayat-en">"And among His signs is that He created for you mates from among yourselves,<br>that you may find tranquility in them."</p>
-      <span class="ayat-ref">— سورة الروم ٣٠:٢١</span>
-    </div>
-
-    <div class="divider" style="margin-top:1.1rem"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
-    <p class="tagline">Your presence is our blessing</p>
-
+  <!-- AYAT -->
+  <div class="ayat-wrap">
+    <div class="ayat-arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا</div>
+    <div class="ayat-en">"And among His signs is that He created for you mates from among yourselves, that you may find tranquility in them."</div>
+    <div class="ayat-ref">Surah Ar-Rum · 30:21</div>
   </div>
+
+  <div class="footer">
+    <span class="footer-tag">Ibrahim &amp; Ayesha · Walima 2025</span>
+    <span class="footer-diamonds">◆ ◆ ◆</span>
+    <span class="footer-tag">JazakAllah Khair</span>
+  </div>
+
 </div>
 
 <script>
-  /* ── Countdown timer ── */
-  // ✏️ EDIT: Date format: "YYYY-MM-DDTHH:MM:SS"
-  const eventDate = new Date("2025-02-15T13:00:00");
+  /* Scroll reveal */
+  const revealEls = document.querySelectorAll('.section, .ayat-wrap');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => obs.observe(el));
 
-  function updateCountdown() {
-    const now = new Date();
-    const diff = eventDate - now;
-    if (diff <= 0) {
-      ["cd-d","cd-h","cd-m","cd-s"].forEach(id => document.getElementById(id).textContent = "00");
-      return;
-    }
+  /* Countdown — ✏️ EDIT date below */
+  const eventDate = new Date("2025-02-15T13:00:00");
+  function tick() {
+    const diff = eventDate - new Date();
+    if (diff <= 0) { ["cd-d","cd-h","cd-m","cd-s"].forEach(id => document.getElementById(id).textContent = "00"); return; }
     document.getElementById("cd-d").textContent = String(Math.floor(diff / 86400000)).padStart(2,"0");
     document.getElementById("cd-h").textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,"0");
     document.getElementById("cd-m").textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,"0");
     document.getElementById("cd-s").textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,"0");
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  /* ── Floating petals ── */
-  const petalColors = ["#c9a84c","#e8c96a","#f0dfa0","#d4a8e0","#f5c6d8"];
-  const petalShapes = [
-    "M0,-8 C4,-4 4,4 0,8 C-4,4 -4,-4 0,-8Z",
-    "M0,-6 C3,-3 6,0 3,6 C0,3 -3,6 -6,0 C-3,-3 0,-6 0,-6Z",
-    "M0,-7 C2,-2 7,0 2,5 C0,2 -2,5 -7,0 C-2,-2 0,-7 0,-7Z"
-  ];
-
-  const container = document.getElementById("petals");
-  for (let i = 0; i < 18; i++) {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
-    svg.setAttribute("width","14"); svg.setAttribute("height","14");
-    svg.setAttribute("viewBox","-10 -10 20 20");
-    const path = document.createElementNS("http://www.w3.org/2000/svg","path");
-    path.setAttribute("d", petalShapes[Math.floor(Math.random() * petalShapes.length)]);
-    path.setAttribute("fill", petalColors[Math.floor(Math.random() * petalColors.length)]);
-    svg.appendChild(path);
-
-    const el = document.createElement("div");
-    el.className = "petal";
-    el.appendChild(svg);
-
-    const left = Math.random() * 100;
-    const delay = Math.random() * 12;
-    const duration = 8 + Math.random() * 10;
-    const size = 10 + Math.random() * 14;
-
-    el.style.cssText = `left:${left}%;top:-20px;width:${size}px;height:${size}px;animation-duration:${duration}s;animation-delay:${delay}s;`;
-    container.appendChild(el);
-  }
+  tick(); setInterval(tick, 1000);
 </script>
 </body>
 </html>
