@@ -57,7 +57,7 @@
       align-items: center;
       justify-content: center;
       gap: 1.4rem;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 2s ease, visibility 2s ease;
     }
     .loader.hide { opacity: 0; visibility: hidden; }
 
@@ -669,7 +669,7 @@ function animatePetals() {
 animatePetals();
 
 /* LOADER */
-setTimeout(() => { document.getElementById('loader').classList.add('hide'); }, 3200);
+setTimeout(() => { document.getElementById('loader').classList.add('hide'); }, 5000);
 
 /* SCROLL REVEAL */
 const revealEls = document.querySelectorAll('.section, .ayat-wrap');
